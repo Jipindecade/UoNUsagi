@@ -2,8 +2,7 @@ name: Deploy static content to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
@@ -13,21 +12,18 @@ jobs:
       id-token: write
 
     steps:
-      # 1. 检出仓库代码
       - uses: actions/checkout@v3
 
-      # 2. 配置 Pages 环境
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v3
 
-      # 如果你需要用 npm/vite 构建，把下面两行解开并把 path 改成 dist
+      # 如果你有构建步骤，用下面两行，并把 path 改为 dist
       # - name: Install dependencies
       #   run: npm ci
       # - name: Build site
       #   run: npm run build
 
-      # 3. 上传要发布的静态文件目录
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./    # ← 根目录下正好有你的 index.html
+          path: ./   # ← 根目录就有你的 index.html
